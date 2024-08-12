@@ -44,12 +44,12 @@ class FileService:
 
     @staticmethod
     async def get_file_by_uid(uid: UploadFile, session: AsyncSession):
-        statement = select(MediaFile).where(MediaFile.uid == uid).limit(1)
+        statement = select(MediaFile).where(MediaFile.uid == uid)
         media_file = await session.execute(statement)
         media_file = media_file.first()
         if not media_file:
             return
-        media_file: MediaFile = media_file[0]
+        media_file: MediaFile = media_file
 
         file_location = (
             Path(str(settings.directory_path)) / f"{str(uid)}{media_file.extension}"
