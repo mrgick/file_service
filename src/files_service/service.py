@@ -8,6 +8,8 @@ import aiofiles
 from pathlib import Path
 from config import settings
 from fastapi import HTTPException
+from fastapi.responses import StreamingResponse
+from sqlalchemy import select
 
 
 class FileService:
@@ -40,9 +42,29 @@ class FileService:
 
         return media_file
 
-    # async def get_file_by_uid(uid: str, session:AsyncSession):
-    #     db = SessionLocal()
-    #     media_file = db.query(MediaFile).filter(MediaFile.uid == uid).first()
-    #     if media_file:
-    #         return {"file": media_file}
-    #     return {"error": "File not found"}
+    @staticmethod
+    async def get_file_by_uid(uid: UploadFile, session: AsyncSession):
+        statement = select(MediaFile).where(MediaFile.uid == uid).limit(1)
+        media_file = await session.execute(statement)
+        media_file = media_file.first()
+        if not media_file:
+            return
+        media_file: MediaFile = media_file[0]
+
+        file_location = (
+            Path(str(settings.directory_path)) / f"{str(uid)}{media_file.extension}"
+        )
+        if not file_location.exists():
+            return
+        return StreamingResponse(
+            read_file(file_location),
+            headers={
+                "Content-Disposition": f"attachment; filename={media_file.original_name}"
+            },
+        )
+
+
+async def read_file(file_location):
+    async with aiofiles.open(file_location, mode="rb") as file:
+        while chunk := await file.read(1024):
+            yield chunk

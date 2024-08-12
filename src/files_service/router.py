@@ -3,6 +3,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from database import get_async_session
 from .service import FileService
 from .schemas import MediaFileResponse
+from fastapi.responses import StreamingResponse
+from uuid import UUID
 
 router = APIRouter(prefix="/file")
 
@@ -13,6 +15,5 @@ async def upload_file(file: UploadFile = File(...), session: AsyncSession = Depe
 
 
 @router.get("/files/{uid}")
-async def get_file(uid: str):
-    return uid
-    # return await services.get_file_by_uid(uid)
+async def get_file(uid: UUID, session: AsyncSession = Depends(get_async_session)):
+    return await FileService.get_file_by_uid(uid, session)
