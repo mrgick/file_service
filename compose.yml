@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  api:
+    build: .
+    volumes:
+      - ./files:/files
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+    network_mode: host # for using localhost database
