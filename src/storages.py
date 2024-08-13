@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 class CloudStorage:
+
     @staticmethod
     async def upload_file(file_location: Path) -> None:
         """Метод для загрузки файла в облако по API"""
