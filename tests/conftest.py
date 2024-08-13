@@ -2,10 +2,9 @@ from typing import AsyncGenerator
 
 import pytest
 from httpx import ASGITransport, AsyncClient
-from models.media_file import Base
 
 from src.config import settings
-from src.database import engine
+from src.database import init_models
 from src.main import app
 
 
@@ -19,32 +18,28 @@ def anyio_backend(request):
     return request.param
 
 
-@pytest.fixture(scope="session")
 def empty_directory_path():
     for file in settings.directory_path.iterdir():
         if file.is_file():
             file.unlink()
-    yield
-    for file in settings.directory_path.iterdir():
-        if file.is_file():
-            file.unlink()
 
 
 @pytest.fixture(scope="session")
-async def start_db():
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
-    await engine.dispose()
+def clean_directory_path():
+    empty_directory_path()
     yield
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
-    await engine.dispose()
+    empty_directory_path()
 
 
 @pytest.fixture(scope="session")
-async def client(start_db, empty_directory_path) -> AsyncGenerator[AsyncClient, None]:
+async def clean_db():
+    await init_models()
+    yield
+    await init_models()
+
+
+@pytest.fixture(scope="session")
+async def client(clean_db, clean_directory_path) -> AsyncGenerator[AsyncClient, None]:
 
     transport = ASGITransport(
         app=app,
