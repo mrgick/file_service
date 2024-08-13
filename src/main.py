@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from files_service.router import router as files_router
+from routers import api_router
 
 app = FastAPI(
     title="File service",
@@ -8,7 +8,7 @@ app = FastAPI(
 )
 
 
-app.include_router(files_router)
+app.include_router(api_router)
 
 
 @app.get("/")

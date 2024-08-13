@@ -2,7 +2,7 @@ import asyncio
 from typing import AsyncGenerator
 
 from config import settings
-from files_service.models import Base
+from models.media_file import Base
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 

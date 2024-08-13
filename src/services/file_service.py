@@ -6,12 +6,11 @@ from uuid import UUID, uuid4
 from config import settings
 from fastapi import BackgroundTasks, HTTPException, UploadFile
 from fastapi.responses import StreamingResponse
+from models.media_file import MediaFile
+from schemas.media_file import MediaFileResponse
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from storages import CloudStorage, LocalStorage
-
-from .models import MediaFile
-from .schemas import MediaFileResponse
 
 logger = logging.getLogger(__name__)
 

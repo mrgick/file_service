@@ -1,9 +1,10 @@
-import pytest
-from httpx import ASGITransport, AsyncClient
 from typing import AsyncGenerator
 
+import pytest
+from httpx import ASGITransport, AsyncClient
+from models.media_file import Base
+
 from src.database import engine
-from src.files_service.models import Base
 from src.main import app
 
 

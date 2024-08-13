@@ -3,10 +3,9 @@ from uuid import UUID
 from database import get_async_session
 from fastapi import APIRouter, BackgroundTasks, Depends, UploadFile
 from fastapi.responses import StreamingResponse
+from schemas.media_file import MediaFileResponse
+from services.file_service import FileService
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from .schemas import MediaFileResponse
-from .service import FileService
 
 router = APIRouter(prefix="/file")
 
