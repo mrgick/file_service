@@ -1,11 +1,12 @@
-from fastapi import APIRouter, Depends, UploadFile, File, BackgroundTasks
-from typing import Annotated
-from sqlalchemy.ext.asyncio import AsyncSession
-from database import get_async_session
-from .service import FileService
-from .schemas import MediaFileResponse
-from fastapi.responses import StreamingResponse
 from uuid import UUID
+
+from database import get_async_session
+from fastapi import APIRouter, BackgroundTasks, Depends, UploadFile
+from fastapi.responses import StreamingResponse
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from .schemas import MediaFileResponse
+from .service import FileService
 
 router = APIRouter(prefix="/file")
 
@@ -26,7 +27,10 @@ async def upload_multiple_files(
     background_tasks: BackgroundTasks,
     session: AsyncSession = Depends(get_async_session),
 ):
-    """Метод для множественной загрузки файлов"""
+    """
+    Метод для множественной загрузки файлов.
+    В ответе выдаёт только успешно загруженные файлы.
+    """
     return await FileService.upload_multiple_files(files, background_tasks, session)
 
 

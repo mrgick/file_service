@@ -1,5 +1,5 @@
+from pydantic import DirectoryPath, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import PostgresDsn, DirectoryPath
 
 
 class Settings(BaseSettings):

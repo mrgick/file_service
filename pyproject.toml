@@ -1,0 +1,19 @@
+[tool.isort]
+profile = "black"
+py_version = 312
+
+[tool.ruff]
+lint.select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # pyflakes
+    "I",  # isort
+    "C", # flake8-comprehensions
+    "B", # flake8-bugbear
+]
+line-length = 120
+lint.ignore = [
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex ( > 10)
+    "B904", # raise in except 
+]
