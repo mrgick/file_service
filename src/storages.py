@@ -47,6 +47,5 @@ class LocalStorage:
     @classmethod
     async def delete_file(file_location: Path) -> None:
         """Метод для удаления файла"""
-        if not await path.isfile(file_location):
-            return
-        await remove(file_location)
+        if await path.isfile(file_location):
+            await remove(file_location)
