@@ -9,3 +9,13 @@ services:
     ports:
       - "8000:8000"
     network_mode: host # for using localhost database
+
+  cron:
+    build:
+      context: .
+      dockerfile: DockerfileCron
+    volumes:
+      - ./files:/files
+    env_file:
+      - .env
+    network_mode: host # for using localhost database

@@ -1,0 +1,20 @@
+FROM python:3.12.4-slim
+
+WORKDIR /file_service_cron
+
+COPY ./requirements/base.txt /file_service_cron/requirements.txt
+RUN pip install --root-user-action=ignore --no-cache-dir --upgrade -r /file_service_cron/requirements.txt
+
+COPY ./src /file_service_cron/src
+
+RUN apt-get update && apt-get install -y cron
+
+COPY cron_clean /etc/cron.d/cron_clean
+
+RUN chmod 0644 /etc/cron.d/cron_clean
+
+RUN crontab /etc/cron.d/cron_clean
+
+RUN touch /var/log/cron.log
+
+CMD ["cron", "-f"]

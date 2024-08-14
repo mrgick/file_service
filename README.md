@@ -50,3 +50,9 @@ pip install -r requirements/dev.txt
 ```bash
 pytest
 ```
+# CRON зачистки файлов
+Проверка скрипта:
+```bash
+python src/cron_clean.py
+```
+Крон задача в cron_clean, докер - DockerfileCron

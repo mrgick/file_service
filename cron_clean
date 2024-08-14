@@ -1,0 +1,2 @@
+# запуск каждую ночь
+0 0 * * * python /app/your_script.py --days 1 >> /var/log/cron.log 2>&1
