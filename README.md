@@ -57,4 +57,4 @@ pytest
 ```bash
 python src/cron_clean.py
 ```
-Крон задача в cron_clean, докер - DockerfileCron
+Крон задача в cron_clean, докер - DockerfileCron (добавлено в docker-compose)
