@@ -13,7 +13,8 @@ cp .env_example .env
         sudo docker-compose up
         ```
         > В docker-copmose прописано ```network_mode: host```, чтобы был доступ к локальной бд
-        > Образа бд нет в docker-compose, нужно указать локальную (на машине)
+        
+        > Образа бд нет в docker-compose, нужно указать локальную бд (на машине)
     - Вручную
       1. Установить [Python 3.12](https://www.python.org/downloads/)
       2. Создать среду окружения
@@ -37,7 +38,7 @@ docker exec -it <container_id> python src/database.py
 ```bash
 python src/database.py
 ```
-1. Перейти в [swagger](http://localhost:8000/docs#/)
+4. Перейти в [swagger](http://localhost:8000/docs#/)
 # Тесты
 Написаны базовые тесты проверки работоспособности методов.
 
