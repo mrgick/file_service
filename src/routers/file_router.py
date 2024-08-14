@@ -20,7 +20,7 @@ async def upload_single_file(
     return await FileService.upload_single_file(file, background_tasks, session)
 
 
-@router.post("/upload-multiple/")
+@router.post("/upload-multiple/", response_model=list[MediaFileResponse])
 async def upload_multiple_files(
     files: list[UploadFile],
     background_tasks: BackgroundTasks,
