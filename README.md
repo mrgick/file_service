@@ -13,6 +13,7 @@ cp .env_example .env
         sudo docker-compose up
         ```
         > В docker-copmose прописано ```network_mode: host```, чтобы был доступ к локальной бд
+        > Образа бд нет в docker-compose, нужно указать локальную (на машине)
     - Вручную
       1. Установить [Python 3.12](https://www.python.org/downloads/)
       2. Создать среду окружения
