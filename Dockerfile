@@ -7,4 +7,4 @@ RUN pip install --root-user-action=ignore --no-cache-dir --upgrade -r /file_serv
 
 COPY ./src /file_service/src
 
-CMD ["fastapi", "run", "src/main.py", "--host", "0.0.0.0", "--port", "80"]
+CMD ["fastapi", "run", "src/main.py", "--host", "0.0.0.0", "--port", "8000"]

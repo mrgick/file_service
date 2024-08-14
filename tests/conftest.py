@@ -20,7 +20,7 @@ def anyio_backend(request):
 
 def empty_directory_path():
     for file in settings.directory_path.iterdir():
-        if file.is_file():
+        if file.is_file() and file.name != "__init__.py":
             file.unlink()
 
 
